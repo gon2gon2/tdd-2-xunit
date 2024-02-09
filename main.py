@@ -39,6 +39,9 @@ class WasRun(TestCase):
 
         self.log = self.log + " " + log
 
+    def testBrokenMethod(self):
+        raise Exception
+
 class TestResult:
     def __init__(self):
         self.runCount = 0
