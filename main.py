@@ -9,6 +9,10 @@ class TestCase:
         self.setUp()
         method = getattr(self, self.name)
         method()
+        self.tearDown()
+
+    def tearDown(self):
+        pass
 
 
 class WasRun(TestCase):
@@ -17,10 +21,20 @@ class WasRun(TestCase):
         super().__init__(name)
 
     def setUp(self):
-        self.log += "setUp "
+        self._addLog("setUp")
 
     def testMethod(self):
-        self.log = self.log + "testMethod "
+        self._addLog("testMethod")
+
+    def tearDown(self):
+        self._addLog("tearDown")
+
+    def _addLog(self, log):
+        if self.log == "":
+            self.log = log
+            return
+
+        self.log = self.log + " " + log
 
 
 class TestCaseTest(TestCase):
@@ -31,7 +45,7 @@ class TestCaseTest(TestCase):
     def testTemplateMethod(self):
         self.test = WasRun("testMethod")
         self.test.run()
-        assert ("setUp testMethod " == self.test.log)
+        assert ("setUp testMethod tearDown" == self.test.log)
 
 
 if __name__ == "__main__":
