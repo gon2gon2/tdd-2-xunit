@@ -10,6 +10,7 @@ class TestCase:
         method = getattr(self, self.name)
         method()
         self.tearDown()
+        return TestResult()
 
     def tearDown(self):
         pass
@@ -36,7 +37,15 @@ class WasRun(TestCase):
 
         self.log = self.log + " " + log
 
+class TestResult:
+    def __init__(self):
+        self.runCount = 1
 
+    def summary(self):
+        return "1 run, 0 failed"
+
+
+# test for
 class TestCaseTest(TestCase):
     def __init__(self, name):
         super().__init__(name)
