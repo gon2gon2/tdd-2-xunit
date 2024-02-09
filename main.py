@@ -13,17 +13,13 @@ class TestCase:
 
 class WasRun(TestCase):
     def __init__(self, name):
-        self.wasSetUp = None
-        self.wasRun = None
         self.log = ""
         super().__init__(name)
 
     def setUp(self):
         self.log += "setUp "
-        self.wasSetUp = 1
 
     def testMethod(self):
-        self.wasRun = 1
         self.log = self.log + "testMethod "
 
 
