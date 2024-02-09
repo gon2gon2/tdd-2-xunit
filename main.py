@@ -15,13 +15,16 @@ class WasRun(TestCase):
     def __init__(self, name):
         self.wasSetUp = None
         self.wasRun = None
+        self.log = ""
         super().__init__(name)
 
     def setUp(self):
+        self.log += "setUp "
         self.wasSetUp = 1
 
     def testMethod(self):
         self.wasRun = 1
+        self.log = self.log + "testMethod "
 
 
 class TestCaseTest(TestCase):
@@ -38,7 +41,7 @@ class TestCaseTest(TestCase):
 
     def testSetUp(self):
         self.test.run()
-        assert self.test.wasSetUp
+        assert ("setUp testMethod " == self.test.log)
 
 
 if __name__ == "__main__":
