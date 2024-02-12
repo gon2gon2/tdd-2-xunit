@@ -14,7 +14,8 @@ class TestCase:
             method()
         except:
             testResult.testFailed()
-        self.tearDown()
+        finally:
+            self.tearDown()
         return testResult
 
     def tearDown(self):
@@ -61,16 +62,14 @@ class TestResult:
         self.failureCount += 1
 
 
-# test for
 class TestCaseTest(TestCase):
     def __init__(self, name):
         super().__init__(name)
-        self.test = None
 
     def testTemplateMethod(self):
-        self.test = WasRun("testMethod")
-        self.test.run()
-        assert ("setUp testMethod tearDown" == self.test.log)
+        test = WasRun("testMethod")
+        test.run()
+        assert ("setUp testMethod tearDown" == test.log)
 
     def testResult(self):
         test = WasRun("testMethod")
@@ -90,7 +89,7 @@ class TestCaseTest(TestCase):
 
 
 if __name__ == "__main__":
-    TestCaseTest("testTemplateMethod").run()
-    TestCaseTest("testResult").run()
-    TestCaseTest("testFailedResult").run()
-    TestCaseTest("testFailedResultFormatting").run()
+    print(TestCaseTest("testTemplateMethod").run().summary())
+    print(TestCaseTest("testResult").run().summary())
+    print(TestCaseTest("testFailedResult").run().summary())
+    print(TestCaseTest("testFailedResultFormatting").run().summary())
