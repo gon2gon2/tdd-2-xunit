@@ -39,7 +39,7 @@ class WasRun(TestCase):
             self.log = log
             return
 
-        self.log = self.log + " " + log
+        self.log = " ".join([self.log, log])
 
     def testBrokenMethod(self):
         raise Exception
